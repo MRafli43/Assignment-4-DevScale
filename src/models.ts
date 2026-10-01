@@ -1,0 +1,19 @@
+import { OpenAIClient } from "@anvia/openai";
+import "dotenv/config";
+
+const apiKey = process.env.OPENAI_API_KEY;
+
+if (!apiKey || apiKey === "your-api-key") {
+    throw new Error("Please set the OPENAI_API_KEY environment variable.");
+}
+
+const client = new OpenAIClient({
+    apiKey,
+    baseUrl: process.env.OPENAI_BASE_URL,
+});
+
+export function getModel() {
+    return client.completionModel({
+        modelId: process.env.OPENAI_MODEL || "gpt-6-luna",
+    });
+}
